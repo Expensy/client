@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Create an account</h3>
+      <div class="card">
+        <div class="card-block">
+          <div *ngIf="successMessage" class="alert alert-success" role="alert">{{successMessage}}</div>
+          <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+          <form [formGroup]="form" (ngSubmit)="submitForm()">
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group" [class.has-danger]="formErrors.firstName">
+                  <label for="firstName">First name</label>
+                  <input class="form-control" id="firstName" formControlName="first_name">
+                  <div *ngIf="formErrors.firstName" class="form-control-feedback">
+                    {{ formErrors.firstName }}
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group" [class.has-danger]="formErrors.lastName">
+                  <label for="lastName">Last name</label>
+                  <input class="form-control" id="lastName" formControlName="last_name">
+                  <div *ngIf="formErrors.lastName" class="form-control-feedback">
+                    {{ formErrors.lastName }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group" [class.has-danger]="formErrors.email">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" id="email" formControlName="email">
+                  <div *ngIf="formErrors.email" class="form-control-feedback">
+                    {{ formErrors.email }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group" [class.has-danger]="formErrors.password || formErrors.form">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" formControlName="password">
+                  <div *ngIf="formErrors.password" class="form-control-feedback">
+                    {{ formErrors.password }}
+                  </div>
+                  <div *ngIf="formErrors.form" class="form-control-feedback">
+                    {{formErrors.form}}
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group" [class.has-danger]="formErrors.passwordConfirmation || form?.errors?.passwordMatch">
+                  <label for="passwordConfirmation">Password confirmation</label>
+                  <input type="password" class="form-control" id="passwordConfirmation" formControlName="password_confirmation">
+                  <div *ngIf="formErrors.passwordConfirmation" class="form-control-feedback">
+                    {{ formErrors.passwordConfirmation }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" [disabled]="!form.valid || isLoading">
+              Create my account
+            </button>
+
+            <app-loading-indicator *ngIf="isLoading"></app-loading-indicator>
+          </form>
+        </div>
+      </div>
+      errors : {{formErrors | json}}
+      errors forn : {{form.errors | json}}
+    </div>
+  </div>
+</div>

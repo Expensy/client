@@ -1,0 +1,7 @@
+<div *ngIf="user">{{user.first_name}} {{user.last_name}}
+  <button (click)="logout()">logout</button>
+</div>
+<a routerLink="/login" routerLinkActive="active">Login</a>
+<a routerLink="/register" routerLinkActive="active">Register</a>
+
+<router-outlet></router-outlet>
