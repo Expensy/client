@@ -10,20 +10,26 @@
 
             <div class="row">
               <div class="col">
-                <div class="form-group" [class.has-danger]="formErrors.firstName">
+                <div class="form-group" [class.has-danger]="firstNameError.hasError('*', ['dirty'])">
                   <label for="firstName">First name</label>
                   <input class="form-control" id="firstName" formControlName="first_name">
-                  <div *ngIf="formErrors.firstName" class="form-control-feedback">
-                    {{ formErrors.firstName }}
+                  <div ngxErrors="first_name" #firstNameError="ngxErrors">
+                    <div *ngFor="let error of errors['first_name']" [ngxError]="error.name" [when]="error.when"
+                      class="form-control-feedback">
+                      {{ error.message }}
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="col">
-                <div class="form-group" [class.has-danger]="formErrors.lastName">
+                <div class="form-group" [class.has-danger]="lastNameError.hasError('*', ['dirty'])">
                   <label for="lastName">Last name</label>
                   <input class="form-control" id="lastName" formControlName="last_name">
-                  <div *ngIf="formErrors.lastName" class="form-control-feedback">
-                    {{ formErrors.lastName }}
+                  <div ngxErrors="last_name" #lastNameError="ngxErrors">
+                    <div *ngFor="let error of errors['last_name']" [ngxError]="error.name" [when]="error.when"
+                      class="form-control-feedback">
+                      {{ error.message }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -31,11 +37,14 @@
 
             <div class="row">
               <div class="col">
-                <div class="form-group" [class.has-danger]="formErrors.email">
+                <div class="form-group" [class.has-danger]="emailError.hasError('*', ['dirty'])">
                   <label for="email">Email</label>
                   <input type="email" class="form-control" id="email" formControlName="email">
-                  <div *ngIf="formErrors.email" class="form-control-feedback">
-                    {{ formErrors.email }}
+                  <div ngxErrors="email" #emailError="ngxErrors">
+                    <div *ngFor="let error of errors['email']" [ngxError]="error.name" [when]="error.when"
+                      class="form-control-feedback">
+                      {{ error.message }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -43,23 +52,31 @@
 
             <div class="row">
               <div class="col">
-                <div class="form-group" [class.has-danger]="formErrors.password || formErrors.form">
+                <div class="form-group" [class.has-danger]="passwordError.hasError('*', ['dirty'])">
                   <label for="password">Password</label>
                   <input type="password" class="form-control" id="password" formControlName="password">
-                  <div *ngIf="formErrors.password" class="form-control-feedback">
-                    {{ formErrors.password }}
-                  </div>
-                  <div *ngIf="formErrors.form" class="form-control-feedback">
-                    {{formErrors.form}}
+                  <div ngxErrors="password" #passwordError="ngxErrors">
+                    <div *ngFor="let error of errors['password']" [ngxError]="error.name" [when]="error.when"
+                      class="form-control-feedback">
+                      {{ error.message }}
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="col">
-                <div class="form-group" [class.has-danger]="formErrors.passwordConfirmation || form?.errors?.passwordMatch">
+                <div class="form-group"
+                  [class.has-danger]="passwordConfirmationError.hasError('*', ['dirty']) || form?.errors?.passwordMatch">
                   <label for="passwordConfirmation">Password confirmation</label>
                   <input type="password" class="form-control" id="passwordConfirmation" formControlName="password_confirmation">
-                  <div *ngIf="formErrors.passwordConfirmation" class="form-control-feedback">
-                    {{ formErrors.passwordConfirmation }}
+                  <div ngxErrors="password_confirmation" #passwordConfirmationError="ngxErrors">
+                    <div
+                      *ngFor="let error of errors['password_confirmation']" [ngxError]="error.name" [when]="error.when"
+                      class="form-control-feedback">
+                      {{ error.message }}
+                    </div>
+                  </div>
+                  <div *ngIf="form?.errors?.passwordMatch" class="form-control-feedback">
+                    Please enter the same password
                   </div>
                 </div>
               </div>
@@ -73,8 +90,6 @@
           </form>
         </div>
       </div>
-      errors : {{formErrors | json}}
-      errors forn : {{form.errors | json}}
     </div>
   </div>
 </div>

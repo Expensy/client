@@ -12,6 +12,7 @@ import { UserService } from './services/user/user.service';
 import { AuthInterceptor } from './setup/http.interceptor';
 import { RegisterComponent } from './routes/register/register.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
+import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LoadingIndicatorComponent } from './components/loading-indicator/loadin
     BrowserModule,
     NgbModule.forRoot(),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxErrorsModule
   ],
   providers: [
     AuthService,

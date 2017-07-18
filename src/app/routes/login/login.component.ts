@@ -27,15 +27,31 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
 
     this.errorMessage = undefined;
 
-    this.formErrors = {
-      password: ''
-    };
-
-    this.validationMessages = {
-      password: {
-        error: 'Invalid password',
-        required: 'Enter a password'
-      }
+    this.errors = {
+      email: [
+        {
+          name: 'required',
+          message: 'Please enter your email address',
+          when: ['dirty']
+        },
+        {
+          name: 'email',
+          message: 'Please enter a valid email address',
+          when: ['dirty']
+        }
+      ],
+      password: [
+        {
+          name: 'error',
+          message: 'Invalid password',
+          when: ['dirty']
+        },
+        {
+          name: 'required',
+          message: 'Enter a password',
+          when: ['dirty']
+        }
+      ]
     };
 
     this.buildForm();
@@ -65,9 +81,5 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
       email: ['', [Validators.required, AppValidators.email()]],
       password: ['', Validators.required]
     });
-
-    this.form.valueChanges
-      .subscribe(data => this.onValueChanged(data));
-    this.onValueChanged();
   }
 }

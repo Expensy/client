@@ -25,27 +25,52 @@ export class RegisterComponent extends BaseFormComponent implements OnInit {
     this.isLoading = false;
     this.successMessage = undefined;
 
-    this.validationMessages = {
-      form: {
-        passwordMatch: 'Password do not match'
-      },
-      firstName: {
-        required: 'Please enter your first name'
-      },
-      lastName: {
-        required: 'Please enter your last name'
-      },
-      email: {
-        required: 'Please enter your email',
-        email: 'Please enter a valid email address',
-        unique: 'An account has already been created with this email address'
-      },
-      password: {
-        required: 'Please enter your password'
-      },
-      passwordConfirmation: {
-        required: 'Please enter your password confirmation'
-      }
+    this.errors = {
+      first_name: [
+        {
+          name: 'required',
+          message: 'Please enter your first name',
+          when: ['dirty']
+        }
+      ],
+      last_name: [
+        {
+          name: 'required',
+          message: 'Please enter your last name',
+          when: ['dirty']
+        }
+      ],
+      email: [
+        {
+          name: 'required',
+          message: 'Please enter your email address',
+          when: ['dirty']
+        },
+        {
+          name: 'email',
+          message: 'Please enter a valid email address',
+          when: ['dirty']
+        },
+        {
+          name: 'unique',
+          message: 'An account has already been created with this email address',
+          when: []
+        }
+      ],
+      password: [
+        {
+          name: 'required',
+          message: 'Please enter a password',
+          when: ['dirty']
+        }
+      ],
+      password_confirmation: [
+        {
+          name: 'required',
+          message: 'Please enter a password confirmation',
+          when: ['dirty']
+        }
+      ]
     };
 
     this.buildForm();
@@ -62,8 +87,14 @@ export class RegisterComponent extends BaseFormComponent implements OnInit {
           this.form.reset();
         },
         (err: HttpErrorResponse) => {
-          this.form.setErrors(err.error ? err.error.message : err.message);
-          this.onValueChanged();
+          const fields = err.error ? err.error.message : err.message;
+
+          Object.keys(fields).forEach((field) => {
+            const control = this.form.controls[field];
+            fields[field].forEach((rule) => {
+              control.setErrors({[rule]: true});
+            });
+          });
         });
   }
 
@@ -77,9 +108,5 @@ export class RegisterComponent extends BaseFormComponent implements OnInit {
     }, {
       validator: AppValidators.passwordMatch('password', 'password_confirmation')
     });
-
-    this.form.valueChanges
-      .subscribe((data: any) => this.onValueChanged(data));
-    this.onValueChanged();
   }
 }

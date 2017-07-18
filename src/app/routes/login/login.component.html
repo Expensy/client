@@ -3,16 +3,26 @@
     <div class="col">
       <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{errorMessage}}</div>
       <form [formGroup]="form" (ngSubmit)="submitForm()">
-        <div class="form-group">
+        <div class="form-group" [class.has-danger]="emailError.hasError('*', ['dirty'])">
           <label for="email">Email address</label>
           <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"
             formControlName="email">
+          <div ngxErrors="email" #emailError="ngxErrors">
+            <div *ngFor="let error of errors['email']" [ngxError]="error.name" [when]="error.when"
+              class="form-control-feedback">
+              {{ error.message }}
+            </div>
+          </div>
         </div>
-        <div class="form-group" [class.has-danger]="formErrors.password">
+        <div class="form-group" [class.has-danger]="passwordError.hasError('*', ['dirty'])">
           <label for="password">Password</label>
           <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
-          <div *ngIf="formErrors.password" class="form-control-feedback">
-            {{ formErrors.password }}
+
+          <div ngxErrors="password" #passwordError="ngxErrors">
+            <div *ngFor="let error of errors['password']" [ngxError]="error.name" [when]="error.when"
+              class="form-control-feedback">
+              {{ error.message }}
+            </div>
           </div>
         </div>
         <button class="btn btn-primary" [disabled]="!form.valid">Login</button>
