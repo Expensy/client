@@ -6,20 +6,28 @@ import { LoginComponent } from './routes/login/login.component';
 import { routing } from './app.routes';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './services/login/login.service';
+import { AuthService } from './services/auth/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserService } from './services/user/user.service';
 import { AuthInterceptor } from './setup/http.interceptor';
 import { RegisterComponent } from './routes/register/register.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
+import { ProjectsComponent } from './routes/projects/projects.component';
+import { AuthGuard } from './services/auth-guard/auth.guard';
+import { ProjectService } from './services/project/project.service';
+import { ProjectFeedComponent } from './routes/project-feed/project-feed.component';
+import { ProjectResolveService } from './services/project-resolve/project-resolve.service';
+import { EntryService } from './services/entry/entry.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoadingIndicatorComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProjectsComponent,
+    ProjectFeedComponent
   ],
   imports: [
     routing,
@@ -36,7 +44,11 @@ import { NgxErrorsModule } from '@ultimate/ngxerrors';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-    }
+    },
+    AuthGuard,
+    ProjectService,
+    ProjectResolveService,
+    EntryService
   ],
   bootstrap: [AppComponent]
 })

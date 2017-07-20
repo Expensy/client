@@ -18,9 +18,7 @@ export class UserService {
 
   show(id: number | string) {
     return this.http.get(`${this.baseUrl}/${id}`)
-      .map((data) => {
-        return Object.assign(new User(), data);
-      });
+      .map((data) => Object.assign(new User(), data));
   }
 
   create(data: any) {

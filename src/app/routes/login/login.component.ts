@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BaseFormComponent } from '../../components/base-form/base-form.component';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/login/login.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from '../../services/user/user.service';
 import { AppValidators } from '../../utils/validators';
@@ -21,10 +21,6 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    // if (this.router.isActive('/login', true)) {
-    //   this.router.navigate(['/']);
-    // }
-
     this.errorMessage = undefined;
 
     this.errors = {
@@ -68,6 +64,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
           this.userService.show('current')
             .subscribe((user) => {
               this.authService.user.next(user);
+              this.router.navigate(['/projects']);
             });
         },
         (err: HttpErrorResponse) => {
@@ -78,8 +75,8 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
 
   private buildForm(): void {
     this.form = this.fb.group({
-      email: ['', [Validators.required, AppValidators.email()]],
-      password: ['', Validators.required]
+      email: ['dev@expensy.com', [Validators.required, AppValidators.email()]],
+      password: ['password', Validators.required]
     });
   }
 }

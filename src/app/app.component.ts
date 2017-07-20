@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './services/login/login.service';
+import { AuthService } from './services/auth/auth.service';
 import { User } from './models/user';
 
 @Component({
@@ -9,10 +9,12 @@ import { User } from './models/user';
 })
 export class AppComponent implements OnInit {
   user: User;
+  isCollapsed: boolean;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
+    this.isCollapsed = true;
     this.authService.user.subscribe((user) => this.user = user);
   }
 

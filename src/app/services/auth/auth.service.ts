@@ -4,15 +4,22 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/do';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { User } from '../../models/user';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
   user: BehaviorSubject<User>;
   private baseUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.user = new BehaviorSubject(undefined);
     this.baseUrl = `${environment.baseUrl}/api/authenticate`;
+
+    this.user.subscribe((user) => {
+      if (!user) {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   login(credentials: any) {

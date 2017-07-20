@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div *ngIf="entries.length > 0">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>title</th>
+            <th>price</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let entry of entries">
+            <td>{{entry.title}}</td>
+            <td>{{entry.price}}</td>
+            <td>{{entry.category?.title}}</td>
+            <td>{{entry.date}}</td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="entries.length === 0 && !isLoading">
+        <div class="text-xs-center text-muted">No entries</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid" *ngIf="isLoading">
+  <div class="text-xs-center">
+    <app-loading-indicator></app-loading-indicator>
+  </div>
+</div>
