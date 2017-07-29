@@ -19,6 +19,8 @@ import { ProjectService } from './services/project/project.service';
 import { ProjectFeedComponent } from './routes/project-feed/project-feed.component';
 import { ProjectResolveService } from './services/project-resolve/project-resolve.service';
 import { EntryService } from './services/entry/entry.service';
+import { EntryNewComponent } from './routes/entry-new/entry-new.component';
+import { ProjectNewComponent } from './routes/project-new/project-new.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { EntryService } from './services/entry/entry.service';
     LoginComponent,
     RegisterComponent,
     ProjectsComponent,
-    ProjectFeedComponent
+    ProjectFeedComponent,
+    EntryNewComponent,
+    ProjectNewComponent
   ],
   imports: [
     routing,

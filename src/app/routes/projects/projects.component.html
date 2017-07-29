@@ -1,22 +1,30 @@
-<div class="container-fluid" *ngIf="!isLoading">
-  <div *ngIf="projects.length > 0">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="list-group">
-          <a *ngFor="let project of projects"
-            class="list-group-item list-group-item-action"
-            [routerLink]="['/projects', project.id]">
-            {{project.title}}
-          </a>
-        </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <a [routerLink]="['/projects/new']">New project</a>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isLoading">
+    <div class="col">
+      <div class="text-xs-center">
+        <app-loading-indicator></app-loading-indicator>
       </div>
     </div>
   </div>
-  <div *ngIf="projects.length === 0 && !isLoading">
-    <div class="text-xs-center text-muted">No projects</div>
+  <div class="row" *ngIf="!isLoading">
+    <div class="col">
+      <div class="list-group" *ngIf="projects.length > 0">
+        <a *ngFor="let project of projects"
+          class="list-group-item list-group-item-action"
+          [routerLink]="['/projects', project.id]">
+          {{project.title}}
+        </a>
+      </div>
+      <div *ngIf="projects.length === 0">
+        <div class="text-xs-center text-muted">No projects</div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="text-xs-center" *ngIf="isLoading">
-  <app-loading-indicator></app-loading-indicator>
-</div>

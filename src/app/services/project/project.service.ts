@@ -19,6 +19,10 @@ export class ProjectService {
   show(projectId: number) {
     return this.http.get<Project>(`${this.baseUrl}/${projectId}`);
   }
+
+  create(data: any) {
+    return this.http.post(this.baseUrl, data);
+  }
 }
 
 interface ListResponse {

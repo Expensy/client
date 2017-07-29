@@ -14,12 +14,6 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
     this.user = new BehaviorSubject(undefined);
     this.baseUrl = `${environment.baseUrl}/api/authenticate`;
-
-    this.user.subscribe((user) => {
-      if (!user) {
-        this.router.navigate(['/login']);
-      }
-    });
   }
 
   login(credentials: any) {
@@ -29,6 +23,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem(environment.tokenName);
     this.user.next(undefined);
+    this.router.navigate(['/login']);
   }
 
   storeCredentials(token: string) {

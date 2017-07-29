@@ -87,14 +87,7 @@ export class RegisterComponent extends BaseFormComponent implements OnInit {
           this.form.reset();
         },
         (err: HttpErrorResponse) => {
-          const fields = err.error ? err.error.message : err.message;
-
-          Object.keys(fields).forEach((field) => {
-            const control = this.form.controls[field];
-            fields[field].forEach((rule) => {
-              control.setErrors({[rule]: true});
-            });
-          });
+          this.handleErrors(err);
         });
   }
 

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Pagination } from '../../models/pagination';
 import { HttpClient } from '@angular/common/http';
-import { logging } from 'selenium-webdriver';
 import { Entry } from '../../models/entry';
 
 @Injectable()
