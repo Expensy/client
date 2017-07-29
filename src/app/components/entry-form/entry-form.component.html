@@ -1,0 +1,58 @@
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <div class="form-group" [class.has-danger]="titleError.hasError('*', ['dirty'])">
+    <label for="title">Title</label>
+    <input class="form-control" id="title" formControlName="title">
+    <div ngxErrors="title" #titleError="ngxErrors">
+      <div *ngFor="let error of errors['title']" [ngxError]="error.name" [when]="error.when"
+        class="form-control-feedback">
+        {{ error.message }}
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group" [class.has-danger]="priceError.hasError('*', ['dirty'])">
+    <label for="price">Price</label>
+    <input type="number" class="form-control" id="price" formControlName="price">
+    <div ngxErrors="title" #priceError="ngxErrors">
+      <div *ngFor="let error of errors['price']" [ngxError]="error.name" [when]="error.when"
+        class="form-control-feedback">
+        {{ error.message }}
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group" [class.has-danger]="dateError.hasError('*', ['dirty'])">
+    <label for="date">Date</label>
+    <input class="form-control" id="date" formControlName="date">
+    <div ngxErrors="title" #dateError="ngxErrors">
+      <div *ngFor="let error of errors['date']" [ngxError]="error.name" [when]="error.when"
+        class="form-control-feedback">
+        {{ error.message }}
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="category_id">Category</label>
+    <select class="form-control" id="category_id" formControlName="category_id">
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{category.title}}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group" [class.has-danger]="contentError.hasError('*', ['dirty'])">
+    <label for="content">Content</label>
+    <textarea type="number" class="form-control" id="content" formControlName="content"></textarea>
+    <div ngxErrors="title" #contentError="ngxErrors">
+      <div *ngFor="let error of errors['content']" [ngxError]="error.name" [when]="error.when"
+        class="form-control-feedback">
+        {{ error.message }}
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" [disabled]="!form.valid">
+    {{entry ? 'Update entry' : 'Create entry'}}
+  </button>
+</form>

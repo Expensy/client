@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <app-entry-form *ngIf="entry" [entry]="entry" (onSubmit)="submitForm($event)"></app-entry-form>
+    </div>
+  </div>
+</div>

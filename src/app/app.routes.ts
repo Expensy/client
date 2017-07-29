@@ -6,6 +6,8 @@ import { AuthGuard } from './services/auth-guard/auth.guard';
 import { ProjectFeedComponent } from './routes/project-feed/project-feed.component';
 import { ProjectResolveService } from './services/project-resolve/project-resolve.service';
 import { ProjectNewComponent } from './routes/project-new/project-new.component';
+import { EntryNewComponent } from './routes/entry-new/entry-new.component';
+import { EntryEditComponent } from './routes/entry-edit/entry-edit.component';
 
 export const routes: Routes = [
   {
@@ -34,7 +36,7 @@ export const routes: Routes = [
         component: ProjectNewComponent
       },
       {
-        path: ':projectId',
+        path: ':projectId/entries',
         resolve: {
           project: ProjectResolveService
         },
@@ -42,6 +44,14 @@ export const routes: Routes = [
           {
             path: '',
             component: ProjectFeedComponent
+          },
+          {
+            path: 'new',
+            component: EntryNewComponent
+          },
+          {
+            path: ':entryId',
+            component: EntryEditComponent
           }
         ]
       }]

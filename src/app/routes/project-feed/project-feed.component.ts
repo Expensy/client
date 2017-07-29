@@ -35,4 +35,11 @@ export class ProjectFeedComponent implements OnInit {
         this.entries = response.items;
       });
   }
+
+  deleteEntry(id: number) {
+    this.entryService.remove(id)
+      .subscribe(() => {
+        this.entries = this.entries.filter((entry) => entry.id !== id);
+      });
+  }
 }

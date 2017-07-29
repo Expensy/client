@@ -21,6 +21,9 @@ import { ProjectResolveService } from './services/project-resolve/project-resolv
 import { EntryService } from './services/entry/entry.service';
 import { EntryNewComponent } from './routes/entry-new/entry-new.component';
 import { ProjectNewComponent } from './routes/project-new/project-new.component';
+import { CategoryService } from './services/category/category.service';
+import { EntryEditComponent } from './routes/entry-edit/entry-edit.component';
+import { EntryFormComponent } from './components/entry-form/entry-form.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { ProjectNewComponent } from './routes/project-new/project-new.component'
     ProjectsComponent,
     ProjectFeedComponent,
     EntryNewComponent,
-    ProjectNewComponent
+    ProjectNewComponent,
+    EntryEditComponent,
+    EntryFormComponent
   ],
   imports: [
     routing,
@@ -52,7 +57,8 @@ import { ProjectNewComponent } from './routes/project-new/project-new.component'
     AuthGuard,
     ProjectService,
     ProjectResolveService,
-    EntryService
+    EntryService,
+    CategoryService
   ],
   bootstrap: [AppComponent]
 })

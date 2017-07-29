@@ -4,7 +4,7 @@
       <form [formGroup]="form" (ngSubmit)="submitForm()">
         <div class="form-group" [class.has-danger]="titleError.hasError('*', ['dirty'])">
           <label for="title">Title</label>
-          <input type="text" class="form-control" id="title" formControlName="title">
+          <input class="form-control" id="title" formControlName="title">
           <div ngxErrors="title" #titleError="ngxErrors">
             <div *ngFor="let error of errors['title']" [ngxError]="error.name" [when]="error.when"
               class="form-control-feedback">
@@ -23,7 +23,7 @@
 
         </div>
 
-        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+        <button class="btn btn-primary" [disabled]="!form.valid">
           Create project
         </button>
       </form>

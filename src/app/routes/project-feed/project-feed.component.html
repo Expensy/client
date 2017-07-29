@@ -1,6 +1,12 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col">
+      <a [routerLink]="['/projects', projectId, 'entries', 'new']">New entry</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
       <div *ngIf="entries.length > 0">
         <table class="table table-striped">
           <thead>
@@ -18,7 +24,10 @@
             <td>{{entry.price}}</td>
             <td>{{entry.category?.title}}</td>
             <td>{{entry.date}}</td>
-            <td></td>
+            <td>
+              <a class="btn btn-primary" [routerLink]="['/projects', projectId, 'entries', entry.id]">Edit</a>
+              <button class="btn btn-danger" (click)="deleteEntry(entry.id)">Delete</button>
+            </td>
           </tr>
           </tbody>
         </table>
