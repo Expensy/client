@@ -41,6 +41,7 @@
       <div class="list-group">
         <a *ngFor="let category of categories"
           [routerLink]="['/projects', projectId, 'categories', category.id]" class="list-group-item">
+          <div class="badge" [style.backgroundColor]="category.color">&nbsp;</div>
           {{category.title}}
           <small *ngIf="category.by_default">(default)</small>
         </a>

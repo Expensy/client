@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BaseFormComponent } from '../base-form/base-form.component';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { Project } from '../../models/project';
 
 @Component({
@@ -15,7 +14,7 @@ export class ProjectFormComponent extends BaseFormComponent implements OnInit {
 
   currencies: any[];
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder) {
     super();
   }
 
@@ -57,7 +56,7 @@ export class ProjectFormComponent extends BaseFormComponent implements OnInit {
 
   private buildForm(): void {
     const title = this.project ? this.project.title : '';
-    const currency = this.project ? this.project.currency : '';
+    const currency = this.project ? this.project.currency : this.currencies[0].id;
 
     this.form = this.fb.group({
       title: [title, Validators.required],

@@ -13,7 +13,7 @@
   <div class="form-group" [class.has-danger]="colorError.hasError('*', ['dirty'])">
     <label for="color">color</label>
     <input type="color" class="form-control" id="color" formControlName="color">
-    <div ngxErrors="title" #colorError="ngxErrors">
+    <div ngxErrors="color" #colorError="ngxErrors">
       <div *ngFor="let error of errors['color']" [ngxError]="error.name" [when]="error.when"
         class="form-control-feedback">
         {{ error.message }}
