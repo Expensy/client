@@ -8,6 +8,9 @@ import { ProjectResolveService } from './services/project-resolve/project-resolv
 import { ProjectNewComponent } from './routes/project-new/project-new.component';
 import { EntryNewComponent } from './routes/entry-new/entry-new.component';
 import { EntryEditComponent } from './routes/entry-edit/entry-edit.component';
+import { CategoryNewComponent } from './routes/category-new/category-new.component';
+import { CategoryEditComponent } from './routes/category-edit/category-edit.component';
+import { ProjectEditComponent } from './routes/project-edit/project-edit.component';
 
 export const routes: Routes = [
   {
@@ -35,6 +38,30 @@ export const routes: Routes = [
         path: 'new',
         component: ProjectNewComponent
       },
+      {
+        path: ':id',
+        component: ProjectEditComponent
+      },
+
+      // Categories routes
+      {
+        path: ':projectId/categories',
+        resolve: {
+          project: ProjectResolveService
+        },
+        children: [
+          {
+            path: 'new',
+            component: CategoryNewComponent
+          },
+          {
+            path: ':categoryId',
+            component: CategoryEditComponent
+          }
+        ]
+      },
+
+      // entries routes
       {
         path: ':projectId/entries',
         resolve: {

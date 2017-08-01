@@ -36,6 +36,16 @@
         <div class="text-xs-center text-muted">No entries</div>
       </div>
     </div>
+    <div class="col">
+      <a [routerLink]="['/projects', projectId, 'categories', 'new']">New category</a>
+      <div class="list-group">
+        <a *ngFor="let category of categories"
+          [routerLink]="['/projects', projectId, 'categories', category.id]" class="list-group-item">
+          {{category.title}}
+          <small *ngIf="category.by_default">(default)</small>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 

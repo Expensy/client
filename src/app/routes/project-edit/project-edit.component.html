@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <app-project-form *ngIf="project" [project]="project" (onSubmit)="submitForm($event)"></app-project-form>
+    </div>
+  </div>
+</div>

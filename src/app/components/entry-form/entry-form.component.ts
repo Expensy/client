@@ -48,16 +48,6 @@ export class EntryFormComponent extends BaseFormComponent implements OnInit {
         }
       });
 
-    this.errors = {
-      title: [
-        {
-          name: 'required',
-          message: 'Please enter a title',
-          when: ['dirty']
-        }
-      ]
-    };
-
     this.buildForm();
   }
 

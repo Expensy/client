@@ -21,4 +21,11 @@ export class ProjectsComponent implements OnInit {
         this.projects = response.items;
       });
   }
+
+  deleteProject(id: number) {
+    this.projectService.remove(id)
+      .subscribe(() => {
+        this.projects = this.projects.filter((project) => project.id !== id);
+      });
+  }
 }

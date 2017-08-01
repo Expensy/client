@@ -23,6 +23,14 @@ export class ProjectService {
   create(data: any) {
     return this.http.post(this.baseUrl, data);
   }
+
+  update(projectId: number, data: any) {
+    return this.http.put<Project>(`${this.baseUrl}/${projectId}`, data);
+  }
+
+  remove(projectId: number) {
+    return this.http.delete(`${this.baseUrl}/${projectId}`);
+  }
 }
 
 interface ListResponse {

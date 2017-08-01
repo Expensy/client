@@ -61,7 +61,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     this.authService.login(formValues)
       .subscribe((data) => {
           this.authService.storeCredentials(data.token);
-          this.userService.show('current')
+          this.userService.show('me')
             .subscribe((user) => {
               this.authService.user.next(user);
               this.router.navigate(['/projects']);

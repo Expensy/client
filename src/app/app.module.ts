@@ -24,6 +24,11 @@ import { ProjectNewComponent } from './routes/project-new/project-new.component'
 import { CategoryService } from './services/category/category.service';
 import { EntryEditComponent } from './routes/entry-edit/entry-edit.component';
 import { EntryFormComponent } from './components/entry-form/entry-form.component';
+import { CategoryNewComponent } from './routes/category-new/category-new.component';
+import { CategoryEditComponent } from './routes/category-edit/category-edit.component';
+import { CategoryFormComponent } from './components/category-form/category-form.component';
+import { ProjectEditComponent } from './routes/project-edit/project-edit.component';
+import { ProjectFormComponent } from './components/project-form/project-form.component';
 
 @NgModule({
   declarations: [
@@ -34,9 +39,14 @@ import { EntryFormComponent } from './components/entry-form/entry-form.component
     ProjectsComponent,
     ProjectFeedComponent,
     EntryNewComponent,
+    ProjectEditComponent,
+    ProjectFormComponent,
     ProjectNewComponent,
     EntryEditComponent,
-    EntryFormComponent
+    EntryFormComponent,
+    CategoryNewComponent,
+    CategoryEditComponent,
+    CategoryFormComponent
   ],
   imports: [
     routing,
