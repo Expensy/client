@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth/auth.service';
 import { User } from './models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent implements OnInit {
   user: User;
   isCollapsed: boolean;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.isCollapsed = true;
@@ -20,5 +21,6 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

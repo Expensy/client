@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ReflectiveInjector } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/do';
@@ -11,7 +11,7 @@ export class AuthService {
   user: BehaviorSubject<User>;
   private baseUrl: string;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient) {
     this.user = new BehaviorSubject(undefined);
     this.baseUrl = `${environment.baseUrl}/api/authenticate`;
   }
@@ -23,7 +23,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem(environment.tokenName);
     this.user.next(undefined);
-    this.router.navigate(['/login']);
   }
 
   storeCredentials(token: string) {

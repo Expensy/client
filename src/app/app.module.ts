@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './routes/login/login.component';
@@ -29,6 +29,8 @@ import { CategoryEditComponent } from './routes/category-edit/category-edit.comp
 import { CategoryFormComponent } from './components/category-form/category-form.component';
 import { ProjectEditComponent } from './routes/project-edit/project-edit.component';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
+import { InitService } from './services/init/init.service';
+import { Router } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,14 @@ import { ProjectFormComponent } from './components/project-form/project-form.com
     ProjectService,
     ProjectResolveService,
     EntryService,
-    CategoryService
+    CategoryService,
+    InitService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (initService: InitService) => () => initService.init(),
+      deps: [InitService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { User } from '../../models/user';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
@@ -16,7 +17,7 @@ export class UserService {
     return this.http.get(this.baseUrl);
   }
 
-  show(id: number | string) {
+  show(id: number | string): Observable<User> {
     return this.http.get(`${this.baseUrl}/${id}`)
       .map((data) => Object.assign(new User(), data));
   }
