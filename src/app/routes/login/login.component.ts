@@ -64,7 +64,8 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
           this.userService.show('me')
             .subscribe((user) => {
               this.authService.user.next(user);
-              this.router.navigate(['/projects']);
+              this.authService.project.next(user.projects[0]);
+              this.router.navigate(['projects', user.projects[0].id, 'entries']);
             });
         },
         (err: HttpErrorResponse) => {

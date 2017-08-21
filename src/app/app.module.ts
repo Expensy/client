@@ -30,7 +30,9 @@ import { CategoryFormComponent } from './components/category-form/category-form.
 import { ProjectEditComponent } from './routes/project-edit/project-edit.component';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
 import { InitService } from './services/init/init.service';
-import { Router } from '@angular/router';
+import { CategoryCircleComponent } from './components/category-circle/category-circle.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { Router } from '@angular/router';
     EntryFormComponent,
     CategoryNewComponent,
     CategoryEditComponent,
-    CategoryFormComponent
+    CategoryFormComponent,
+    CategoryCircleComponent
   ],
   imports: [
     routing,
@@ -56,7 +59,9 @@ import { Router } from '@angular/router';
     NgbModule.forRoot(),
     ReactiveFormsModule,
     HttpClientModule,
-    NgxErrorsModule
+    NgxErrorsModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,

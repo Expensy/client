@@ -5,14 +5,17 @@ import 'rxjs/add/operator/do';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
+import { Project } from '../../models/project';
 
 @Injectable()
 export class AuthService {
   user: BehaviorSubject<User>;
+  project: BehaviorSubject<Project>;
   private baseUrl: string;
 
   constructor(private http: HttpClient) {
     this.user = new BehaviorSubject(undefined);
+    this.project = new BehaviorSubject(undefined);
     this.baseUrl = `${environment.baseUrl}/api/authenticate`;
   }
 

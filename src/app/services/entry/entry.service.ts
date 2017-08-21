@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { Pagination } from '../../models/pagination';
 import { HttpClient } from '@angular/common/http';
 import { Entry } from '../../models/entry';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class EntryService {
@@ -14,8 +15,8 @@ export class EntryService {
     this.entryUrl = `${environment.baseUrl}/api/v1/entries`;
   }
 
-  list(projectId: number) {
-    return this.http.get<ListResponse>(`${this.baseUrl}/${projectId}/entries`);
+  list(projectId: number, options?: Object) {
+    return this.http.get<ListResponse>(`${this.baseUrl}/${projectId}/entries`, <Object> options);
   }
 
   create(projectId: number, data: any) {
@@ -37,5 +38,6 @@ export class EntryService {
 
 interface ListResponse {
   items: Entry[];
+  stats: any[];
   paginate: Pagination;
 }

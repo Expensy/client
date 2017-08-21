@@ -16,7 +16,10 @@ export class InitService {
       this.authService.storeCredentials(token);
 
       return this.userService.show('me')
-        .do((user) => this.authService.user.next(user))
+        .do((user) => {
+          this.authService.user.next(user);
+          this.authService.project.next(user.projects[0]);
+        })
         .toPromise();
     }
   }

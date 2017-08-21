@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth/auth.service';
 import { User } from './models/user';
 import { Router } from '@angular/router';
+import { Project } from './models/project';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   user: User;
+  activeProject: Project;
   isCollapsed: boolean;
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -17,6 +19,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.isCollapsed = true;
     this.authService.user.subscribe((user) => this.user = user);
+    this.authService.project.subscribe((project) => this.activeProject = project);
   }
 
   logout() {

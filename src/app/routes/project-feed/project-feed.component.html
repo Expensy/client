@@ -1,57 +1,153 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col">
-      <a [routerLink]="['/projects', projectId, 'entries', 'new']">New entry</a>
-    </div>
-  </div>
+<!--<div class="container-fluid">-->
+<!--<div class="row">-->
+<!--<div class="col">-->
+<!--<a [routerLink]="['/projects', projectId, 'entries', 'new']">New entry</a>-->
+<!--</div>-->
+<!--</div>-->
 
-  <div class="row">
-    <div class="col">
-      <div *ngIf="entries.length > 0">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th>title</th>
-            <th>price</th>
-            <th>Category</th>
-            <th>Date</th>
-            <th>Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let entry of entries">
-            <td>{{entry.title}}</td>
-            <td>{{entry.price}}</td>
-            <td>{{entry.category?.title}}</td>
-            <td>{{entry.date}}</td>
-            <td>
-              <a class="btn btn-primary" [routerLink]="['/projects', projectId, 'entries', entry.id]">Edit</a>
-              <button class="btn btn-danger" (click)="deleteEntry(entry.id)">Delete</button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <div *ngIf="entries.length === 0 && !isLoading">
-        <div class="text-xs-center text-muted">No entries</div>
-      </div>
-    </div>
-    <div class="col">
-      <a [routerLink]="['/projects', projectId, 'categories', 'new']">New category</a>
-      <div class="list-group">
-        <a *ngFor="let category of categories"
-          [routerLink]="['/projects', projectId, 'categories', category.id]" class="list-group-item">
-          <div class="badge" [style.backgroundColor]="category.color">&nbsp;</div>
-          {{category.title}}
-          <small *ngIf="category.by_default">(default)</small>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
+<!--<div class="row">-->
+<!--<div class="col">-->
+<!--<div *ngIf="entries.length > 0">-->
+<!--<table class="table table-striped">-->
+<!--<thead>-->
+<!--<tr>-->
+<!--<th>title</th>-->
+<!--<th>price</th>-->
+<!--<th>Category</th>-->
+<!--<th>Date</th>-->
+<!--<th>Actions</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<tr *ngFor="let entry of entries">-->
+<!--<td>{{entry.title}}</td>-->
+<!--<td>{{entry.price}}</td>-->
+<!--<td>{{entry.category?.title}}</td>-->
+<!--<td>{{entry.date}}</td>-->
+<!--<td>-->
+<!--<a class="btn btn-primary" [routerLink]="['/projects', projectId, 'entries', entry.id]">Edit</a>-->
+<!--<button class="btn btn-danger" (click)="deleteEntry(entry.id)">Delete</button>-->
+<!--</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+
+<!--<button class="btn btn-secondary"-->
+<!--(click)="loadMore()"-->
+<!--*ngIf="pagination.current_page < pagination.total_pages">Load more-->
+<!--</button>-->
+<!--</div>-->
+<!--<div *ngIf="entries.length === 0 && !isLoading">-->
+<!--<div class="text-xs-center text-muted">No entries</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col">-->
+<!--<a [routerLink]="['/projects', projectId, 'categories', 'new']">New category</a>-->
+<!--<div class="list-group">-->
+<!--<a *ngFor="let category of categories"-->
+<!--[routerLink]="['/projects', projectId, 'categories', category.id]" class="list-group-item">-->
+<!--<div class="badge" [style.backgroundColor]="category.color">&nbsp;</div>-->
+<!--{{category.title}}-->
+<!--<small *ngIf="category.by_default">(default)</small>-->
+<!--</a>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
 
 <div class="container-fluid" *ngIf="isLoading">
   <div class="text-xs-center">
     <app-loading-indicator></app-loading-indicator>
+  </div>
+</div>
+
+<div class="container-fluid" *ngIf="!isLoading">
+  <div class="row mt-4">
+    <div class="col col-sm-8">
+      <div class="row mb-4">
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text mb-1">Spent</p>
+              <h4 class="card-title mb-0">{{(stats.total /100) | currency:project.currency}}</h4>
+              <div *ngIf="lineData">
+                <ngx-charts-line-chart
+                  [view]="view"
+                  [scheme]="colorScheme"
+                  [results]="lineData"
+                  [xAxis]="showXAxis"
+                  [yAxis]="showYAxis"
+                  [legend]="showLegend"
+                  [showXAxisLabel]="showXAxisLabel"
+                  [showYAxisLabel]="showYAxisLabel"
+                  [xAxisLabel]="xAxisLabel"
+                  [yAxisLabel]="yAxisLabel"
+                  [autoScale]="autoScale">
+                </ngx-charts-line-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <div class="card-body" *ngIf="pieChartData.length">
+              <ngx-charts-pie-chart
+                [view]="pieView"
+                [scheme]="pieColorScheme"
+                [results]="pieChartData"
+                [legend]="pieShowLegend"
+                [labels]="pieShowLabels"
+                [doughnut]="'true'">
+              </ngx-charts-pie-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div *ngIf="entries.length > 0">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>title</th>
+                <th>price</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let entry of entries">
+                <td>
+                  <app-category-circle [category]="categories[entry.category?.id]"></app-category-circle>
+                  {{entry.title}}
+                </td>
+                <td>{{(entry.price / 100) | currency:project.currency}}</td>
+                <td>{{entry.date | date: 'dd-MM-yyyy'}}</td>
+                <td>
+                  <a class="btn btn-primary" [routerLink]="['/projects', projectId, 'entries', entry.id]">Edit</a>
+                  <button class="btn btn-danger" (click)="deleteEntry(entry.id)">Delete</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+            <button class="btn btn-secondary"
+              (click)="loadMore()"
+              *ngIf="pagination.current_page < pagination.total_pages">Load more
+            </button>
+          </div>
+          <div *ngIf="entries.length === 0 && !isLoading">
+            <div class="text-xs-center text-muted">No entries</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <app-entry-form></app-entry-form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
