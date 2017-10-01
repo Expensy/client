@@ -21,7 +21,7 @@ export class ProjectService {
   }
 
   create(data: any) {
-    return this.http.post(this.baseUrl, data);
+    return this.http.post<Project>(this.baseUrl, data);
   }
 
   update(projectId: number, data: any) {

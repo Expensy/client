@@ -1,7 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './routes/login/login.component';
 import { RegisterComponent } from './routes/register/register.component';
-import { ProjectsComponent } from './routes/projects/projects.component';
 import { AuthGuard } from './services/auth-guard/auth.guard';
 import { ProjectFeedComponent } from './routes/project-feed/project-feed.component';
 import { ProjectResolveService } from './services/project-resolve/project-resolve.service';
@@ -11,13 +10,14 @@ import { EntryEditComponent } from './routes/entry-edit/entry-edit.component';
 import { CategoryNewComponent } from './routes/category-new/category-new.component';
 import { CategoryEditComponent } from './routes/category-edit/category-edit.component';
 import { ProjectEditComponent } from './routes/project-edit/project-edit.component';
+import { ProjectComponent } from './routes/project/project.component';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/projects',
-    pathMatch: 'full'
-  },
+  // {
+  //   path: '',
+  //   redirectTo: '/projects',
+  //   pathMatch: 'full'
+  // },
   {
     path: 'login',
     component: LoginComponent
@@ -27,25 +27,25 @@ export const routes: Routes = [
     component: RegisterComponent
   },
   {
-    path: 'projects',
+    path: 'projects/new',
     canActivate: [AuthGuard],
+    component: ProjectNewComponent
+  },
+  {
+    path: 'projects/:projectId',
+    canActivate: [AuthGuard],
+    component: ProjectComponent,
     children: [
       {
         path: '',
-        component: ProjectsComponent
+        component: ProjectEditComponent,
+        resolve: {
+          project: ProjectResolveService
+        }
       },
-      {
-        path: 'new',
-        component: ProjectNewComponent
-      },
-      {
-        path: ':id',
-        component: ProjectEditComponent
-      },
-
       // Categories routes
       {
-        path: ':projectId/categories',
+        path: 'categories',
         resolve: {
           project: ProjectResolveService
         },
@@ -63,7 +63,7 @@ export const routes: Routes = [
 
       // entries routes
       {
-        path: ':projectId/entries',
+        path: 'entries',
         resolve: {
           project: ProjectResolveService
         },
@@ -81,8 +81,10 @@ export const routes: Routes = [
             component: EntryEditComponent
           }
         ]
-      }]
+      }
+    ]
   }
+
 ];
 
 export const routing = RouterModule.forRoot(routes);

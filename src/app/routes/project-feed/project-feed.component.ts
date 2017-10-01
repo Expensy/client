@@ -17,7 +17,6 @@ export class ProjectFeedComponent implements OnInit {
   entries: Entry[];
   isLoading: boolean;
   project: Project;
-  projectId: number;
 
   view: any[] = [400, 200];
 
@@ -72,17 +71,29 @@ export class ProjectFeedComponent implements OnInit {
   private pagination: Pagination;
   private stats: any;
 
-  constructor(private route: ActivatedRoute, private entryService: EntryService, private categoryService: CategoryService) {}
+  constructor(private route: ActivatedRoute,
+              private entryService: EntryService,
+              private categoryService: CategoryService) {
+    this.project = this.route.snapshot.data['project'];
+  }
 
   ngOnInit() {
-    this.project = this.route.snapshot.data['project'];
-    this.projectId = +this.route.snapshot.params['projectId'];
-
     this.entries = [];
     this.stats = {
       total: 0,
       categories: []
     };
+
+    this.categoryService.list(this.project.id)
+      .finally(() => this.isLoading = false)
+      .subscribe((response) => {
+        this.pieColorScheme.domain = response.items.map((item) => item.color);
+
+        this.categories = response.items.reduce((acc, item) => {
+          acc[item.id] = item;
+          return acc;
+        }, {});
+      });
 
     this.loadEntries(1);
   }
@@ -99,7 +110,7 @@ export class ProjectFeedComponent implements OnInit {
       .set('end_date', '2017-08-13')
       .set('page', page.toString(10));
 
-    this.entryService.list(this.projectId, {
+    this.entryService.list(this.project.id, {
       observe: 'body',
       params: params
     })
@@ -116,17 +127,6 @@ export class ProjectFeedComponent implements OnInit {
         });
 
         this.pagination = response.paginate;
-      });
-
-    this.categoryService.list(this.projectId)
-      .finally(() => this.isLoading = false)
-      .subscribe((response) => {
-        this.pieColorScheme.domain = response.items.map((item) => item.color);
-
-        this.categories = response.items.reduce((acc, item) => {
-          acc[item.id] = item;
-          return acc;
-        }, {});
       });
   }
 

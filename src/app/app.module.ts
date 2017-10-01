@@ -13,7 +13,6 @@ import { AuthInterceptor } from './setup/http.interceptor';
 import { RegisterComponent } from './routes/register/register.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
-import { ProjectsComponent } from './routes/projects/projects.component';
 import { AuthGuard } from './services/auth-guard/auth.guard';
 import { ProjectService } from './services/project/project.service';
 import { ProjectFeedComponent } from './routes/project-feed/project-feed.component';
@@ -33,6 +32,7 @@ import { InitService } from './services/init/init.service';
 import { CategoryCircleComponent } from './components/category-circle/category-circle.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProjectComponent } from './routes/project/project.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoadingIndicatorComponent,
     LoginComponent,
     RegisterComponent,
-    ProjectsComponent,
     ProjectFeedComponent,
     EntryNewComponent,
     ProjectEditComponent,
@@ -51,7 +50,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CategoryNewComponent,
     CategoryEditComponent,
     CategoryFormComponent,
-    CategoryCircleComponent
+    CategoryCircleComponent,
+    ProjectComponent
   ],
   imports: [
     routing,
@@ -60,8 +60,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     HttpClientModule,
     NgxErrorsModule,
-    NgxChartsModule,
-    BrowserAnimationsModule
+    // NgxChartsModule,
+    // BrowserAnimationsModule
   ],
   providers: [
     AuthService,

@@ -19,7 +19,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.isCollapsed = true;
     this.authService.user.subscribe((user) => this.user = user);
-    this.authService.project.subscribe((project) => this.activeProject = project);
+    this.authService.project.subscribe((project) => {
+
+      console.log('active project', project);
+      this.activeProject = project;
+    });
   }
 
   logout() {

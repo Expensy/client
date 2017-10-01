@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { CategoryService } from '../../services/category/category.service';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from '../../models/category';
+import { Project } from '../../models/project';
 
 @Component({
   selector: 'app-entry-form',
@@ -16,11 +17,11 @@ export class EntryFormComponent extends BaseFormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<EntryForm>();
 
   categories: Category[];
-  projectId: number;
+  project: Project;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private categoryService: CategoryService) {
     super();
-    this.projectId = +this.route.snapshot.params['projectId'];
+    this.project = this.route.snapshot.data['project'];
   }
 
   ngOnInit() {
@@ -39,7 +40,7 @@ export class EntryFormComponent extends BaseFormComponent implements OnInit {
       ]
     };
 
-    this.categoryService.list(this.projectId)
+    this.categoryService.list(this.project.id)
       .subscribe((response) => {
         this.categories = response.items;
         const defaultCategory = this.categories.find((category) => category.by_default) || this.categories[0];
